@@ -11,7 +11,7 @@ def percentChange(get1, get2):
     # formula credit: https://www.calculatorsoup.com/calculators/algebra/percent-difference-calculator.php
 
     global v1, v2
-    v1 = float(get1.get())
+    v1 = float(get1.get());
     v2 = float(get2.get())
 
     ans = ((v2 - v1) / abs(v1)) * 100

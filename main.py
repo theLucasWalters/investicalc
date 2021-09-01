@@ -7,6 +7,12 @@ root.title('InvestiCalc')
 root.iconbitmap('images/investicalc.ico') # <- icon downloaded from https://icon-icons.com/icon/stocks-graphic-with-a-magnifier-tool/70602
 root.geometry('400x200')
 
+def pick(var):
+    if var.get() == 'Select a calculator:':
+        return
+    elif var.get() == 'Percent Change':
+        percentChange_window()
+
 # percent change calculator
 def percentChange(num1, num2):
     # formula credit: https://www.calculatorsoup.com/calculators/algebra/percent-difference-calculator.php
@@ -35,6 +41,7 @@ def percentChange_window():
     warn = Label(pc, text="Make sure to remove all commas before pressing 'submit'").pack()
 
     # create entry boxes for num1 & num2
+    global num1, num2
     num1 = Entry(pc, width=20, borderwidth=2.5)
     num2 = Entry(pc, width=20, borderwidth=2.5)
     # display onscreen
@@ -58,7 +65,7 @@ calcs = [
 # create and display menu
 arrow = PhotoImage(file='images/arrow.png') # <- arrow img credit: https://www.flaticon.com/authors/google
 options = OptionMenu(root, var, 'Select a calculator:', *calcs)
-enter = Button(root, text='Go', command=percentChange_window)
+enter = Button(root, text='Go', command=lambda: pick(var))
 options.pack()
 enter.pack()
 

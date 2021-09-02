@@ -109,16 +109,13 @@ def compInt_window():
 def compint(initNum, intRate, compTime):
     principal = float(initNum.get())
     rate = float(intRate.get()) / 100
-    time = float(compTime.get())
+    try:
+        time = int(compTime.get())
+    except:
+        time = float(compTime.get())
 
     answer = (principal * ((1 + rate) ** time) - 1)
     rndANS = round(answer, 2)
-
-    # try changing the time variable to a full int
-    try:
-        int(time)
-    except:
-        float(time)
 
     ansLabel = Label(ci, text=f'After {time} compounding periods, you will have ${rndANS}').pack()
 

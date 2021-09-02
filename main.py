@@ -114,6 +114,12 @@ def compint(initNum, intRate, compTime):
     answer = (principal * ((1 + rate) ** time) - 1)
     rndANS = round(answer, 2)
 
+    # try changing the time variable to a full int
+    try:
+        int(time)
+    except:
+        float(time)
+
     ansLabel = Label(ci, text=f'After {time} compounding periods, you will have ${rndANS}').pack()
 
 # remove placeholder text when clicking the Entry

@@ -1,41 +1,7 @@
 from tkinter import *
-from tkinter import ttk
-
-# percent change calculator
-def percentChange(num1, num2):
-    # formula credit: https://www.calculatorsoup.com/calculators/algebra/percent-difference-calculator.php
-
-    # change str inputs to float
-    v1 = float(num1.get())
-    v2 = float(num2.get())
-
-    # calculate % change between v1 & v2 and round up to the 0.01%
-    ans = ((v2 - v1) / abs(v1)) * 100
-    rndANS = round(ans, 2)
-
-    # display answer
-    ansLabel = Label(pc_frame, text=f'Answer = {rndANS}%').pack()
-
-# compound interest calculation
-def compint(initNum, intRate, compTime):
-    # formula credit: https://www.investopedia.com/terms/c/compoundinterest.asp
-
-    # turn initNum.get() from str -> float
-    principal = float(initNum.get())
-
-    # do the same with intRate.get() & divide by 100
-    rate = float(intRate.get()) / 100
-
-    # use float or int accordingly for compTime.get()
-    try:
-        time = int(compTime.get())
-    except:
-        time = float(compTime.get())
-
-    # calculate, round, and display
-    answer = (principal * ((1 + rate) ** time) - 1)
-    rndANS = round(answer, 2)
-    ansLabel = Label(ci_frame, text=f'After {time} compounding periods, you will have ${rndANS}').pack()
+from tkinter.ttk import *
+from functions import *
+import datetime
 
 # remove placeholder text when clicking the Entry
 def on_click_IN(event):
@@ -59,12 +25,6 @@ def on_click_v2(event):
     num2.delete(0, END)
     num2.unbind('<Button-1>', on_click_num2)
 
-# open percent change and compound interest accordingly
-def open_pc():
-    main.select(1)
-def open_ci():
-    main.select(2)
-
 # create main window
 root = Tk()
 root.title('InvestiCalc')
@@ -72,13 +32,14 @@ root.iconbitmap('images/investicalc.ico') # <- icon downloaded from https://icon
 root.geometry('800x400')
 
 # set up notebook
-main = ttk.Notebook(root)
+main = Notebook(root)
 main.pack(fill='both', expand=1)
 
 # declare frames to be assigned to tabs
 home = Frame(main)
 pc_frame = Frame(main)
 ci_frame = Frame(main)
+market_days = Frame(main)
 
 # pack the frames in
 home.pack(fill='both', expand=1)
@@ -94,8 +55,8 @@ main.add(ci_frame, text='Compound Interest')
 main.hide(1); main.hide(2)
 
 # create buttons to open the tabs
-open_pc_btn = Button(home, text='Calculate Percent Change', command=open_pc)
-open_ci_btn = Button(home, text='Calculate Compound Interest', command=open_ci)
+open_pc_btn = Button(home, text='Calculate Percent Change', command=lambda: open_frame(main, 1))
+open_ci_btn = Button(home, text='Calculate Compound Interest', command=lambda: open_frame(main, 2))
 
 # pack the buttons
 open_pc_btn.pack()
@@ -122,7 +83,7 @@ on_click_num2 = num2.bind('<Button-1>', on_click_v2)
 num1.pack(); num2.pack()
 
 # create and display a submit button
-calculate = Button(pc_frame, text='Submit', command=lambda: percentChange(num1, num2))
+calculate = Button(pc_frame, text='Submit', command=lambda: percentChange(num1, num2, pc_frame))
 calculate.pack()
 
 ###########################
@@ -158,14 +119,14 @@ units = [
     'Annually',
 ]
 
-# create OptionMenu for user clarity; doesn't actually affect calculation
+# create OptionMenu for user clarity; doesn't actually affect calculation at the moment (will use later)
 unitMenu = OptionMenu(ci_frame, unitVar, *units)
 
 # will figure out how to use the arrow for the OptionMenu icon later
 arrow = PhotoImage(file='images/arrow.png') # <- arrow img credit: https://www.flaticon.com/authors/google
 
 # submit button to calculate CI
-calculate = Button(ci_frame, text='Submit', command=lambda: compint(initNum, intRate, compTime))
+calculate = Button(ci_frame, text='Submit', command=lambda: compint(initNum, intRate, compTime, ci_frame))
 
 # pack everything in
 initNum.pack()
@@ -173,6 +134,10 @@ intRate.pack()
 unitMenu.pack()
 compTime.pack()
 calculate.pack()
+
+###########################
+# Market days window
+###########################
 
 # loop
 root.mainloop()

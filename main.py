@@ -139,5 +139,7 @@ calculate.pack()
 # Market days window
 ###########################
 
+# nothing here yet
+
 # loop
 root.mainloop()

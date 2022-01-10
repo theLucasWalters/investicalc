@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter.ttk import *
 from functions import *
 import datetime
+import percent_change_window as pc # not being used yet
+import compound_interest_window as ci # not being used yet
 
 # remove placeholder text when clicking the Entry
 def on_click_IN(event):

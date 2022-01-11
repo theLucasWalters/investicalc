@@ -15,3 +15,6 @@ when it should be $1.01.
 
 - Second window opens on run\
 When the program is run in the command line, a second unwanted Tk window opens alongside the primary one.
+
+- Tkinter OptionMenu doesn't work\
+The dropdown menu to choose the size of compounding periods doesn't display the selected text or custom arrow image.

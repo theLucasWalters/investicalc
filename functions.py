@@ -1,4 +1,4 @@
-from tkinter import *
+import tkinter as tk
 
 # percent change calculator
 def percentChange(num1, num2, frame):
@@ -13,7 +13,7 @@ def percentChange(num1, num2, frame):
     rndANS = round(ans, 2)
 
     # display answer
-    ansLabel = Label(frame, text=f'Answer = {rndANS}%').pack()
+    ansLabel = tk.Label(frame, text=f'Answer = {rndANS}%').pack()
 
 # compounding calculator
 def compint(initNum, intRate, compTime, frame):
@@ -34,7 +34,7 @@ def compint(initNum, intRate, compTime, frame):
     # calculate, round, and display
     answer = (principal * ((1 + rate) ** time) - 1)
     rndANS = round(answer, 2)
-    ansLabel = Label(frame, text=f'After {time} compounding periods, you will have ${rndANS}').pack()
+    ansLabel = tk.Label(frame, text=f'After {time} compounding periods, you will have ${rndANS}').pack()
 
 # open frames as needed
 def open_frame(frame, frame_num):
